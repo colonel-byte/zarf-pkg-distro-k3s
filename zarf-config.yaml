@@ -5,7 +5,7 @@ package:
   create:
     set:
       version: v0.0.0-k3s0
-      # renovate: datasource=github-releases depName=k3s-io/k3s versioning=regex:^v(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)\+k3s(?<build>\d+)$
+      # renovate: datasource=github-releases depName=k3s-io/k3s versioning=regex:^v(?<major>1)\.(?<minor>30)\.(?<patch>\d+)\+k3s(?<build>\d+)$
       k3s_version: v1.30.13+k3s1
       k3s_sha_amd: e972a6b6d7a12f50ad3ea3bd58598d4ca059148c0fbf80f983cb4684069af885
       k3s_sha_arm: c2c994baf99a95f57e46c734ad4b6e972b34ebbc1fdd4a86b542789a9aab207a
