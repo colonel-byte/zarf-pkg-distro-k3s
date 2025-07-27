@@ -4,6 +4,7 @@
 zarf-sbom
 /zarf-artifacts
 decompress
+target
 *.tmp.*
 *.tgz
 
