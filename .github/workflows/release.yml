@@ -25,6 +25,10 @@ jobs:
           - amd64
           - arm64
     steps:
+      - name: Sleep for 30 seconds to avoid race condition with arm/amd
+        if: ${{ matrix.arch == 'arm64' }}
+        run: sleep 30s
+
       - name: Checkout
         uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
         with:
@@ -55,8 +59,8 @@ jobs:
       - name: Package Zarf package
         run: |-
           zarf package create \
-            --confirm .
-            --architecture ${{ matrix.arch }}\
+            --confirm . \
+            --architecture ${{ matrix.arch }} \
             --set version=${{ steps.describe.outputs.git_describe }}
 
       - name: Publish Zarf package
