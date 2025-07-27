@@ -1,0 +1,62 @@
+{
+  $schema: "https://docs.renovatebot.com/renovate-schema.json",
+  extends: [
+    "config:recommended",
+    "helpers:pinGitHubActionDigests"
+  ],
+  platformAutomerge: true,
+  assignees: [
+    "@A1994SC"
+  ],
+  baseBranchPatterns: [
+    "main",
+    "/^release\\/.*/"
+  ],
+  packageRules: [
+    {
+      matchDatasources: [
+        "regex",
+        "docker",
+        "git-tags",
+      ],
+      addLabels: [
+        "renovate/oci"
+      ],
+      groupName: "all dependencies",
+      groupSlug: "all-docker",
+      matchPackageNames: [
+        "*"
+      ],
+      automerge: true,
+    },
+    {
+      matchManagers: ["github-actions"],
+      addLabels: [
+        "renovate/action"
+      ],
+      groupName: "all-actions",
+      groupSlug: "all-actions",
+      matchPackageNames: [
+        "*"
+      ],
+      automerge: true,
+    }
+  ],
+  separateMajorMinor: false,
+  dependencyDashboard: true,
+  customManagers: [
+    {
+      customType: "regex",
+      description: [
+        "Process custom dependencies"
+      ],
+      managerFilePatterns: [
+        "/(^|/).+\\.ya?ml(\\.j2)?$/"
+      ],
+      matchStrings: [
+        "(?m:renovate: datasource=(?<datasource>.+) depName=(?<depName>\\S+)( versioning=(?<versioning>.+))?\\n\\s+(version: |tag: |-.+:)(?<currentValue>(.+))$)"
+      ],
+      versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
+    },
+  ],
+}
