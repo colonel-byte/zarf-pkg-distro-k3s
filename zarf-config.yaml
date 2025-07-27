@@ -6,6 +6,6 @@ package:
     set:
       version: v0.0.0-k3s0
       # renovate: datasource=github-releases depName=k3s-io/k3s versioning=regex:^v(?<major>1)\.(?<minor>32)\.(?<patch>\d+)\+k3s(?<build>\d+)$
-      k3s_version: v1.32.6+k3s1
+      k3s_version: v1.33.3+k3s1
       k3s_sha_amd: a7753f1b5e3b24a4178cfad18ff6fd47313e201f0a3d48db0974dc74d3fe41c1
       k3s_sha_arm: 7b273749a115d29efb5a661613e5cd333c83a3b08e783e9178bb98ee36eecad4
