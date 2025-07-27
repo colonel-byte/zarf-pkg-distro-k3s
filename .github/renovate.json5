@@ -18,12 +18,13 @@
         "regex",
         "docker",
         "git-tags",
+        "github-releases",
       ],
       addLabels: [
         "renovate/oci"
       ],
       groupName: "all dependencies",
-      groupSlug: "all-docker",
+      groupSlug: "all-dep",
       matchPackageNames: [
         "*"
       ],
@@ -54,7 +55,7 @@
         "/(^|/).+\\.ya?ml(\\.j2)?$/"
       ],
       matchStrings: [
-        "(?m:renovate: datasource=(?<datasource>.+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\n\\s+(version: |tag: |-.+:)(?<currentValue>(.+))$)"
+        "(?m:renovate: datasource=(?<datasource>.+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\n\\.+(version: )(?<currentValue>(.+))$)"
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
