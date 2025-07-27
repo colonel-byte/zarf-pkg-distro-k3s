@@ -5,6 +5,7 @@
     "helpers:pinGitHubActionDigests"
   ],
   platformAutomerge: true,
+  ignoreUnstable: false,
   assignees: [
     "@A1994SC"
   ],
