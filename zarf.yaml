@@ -1,0 +1,141 @@
+---
+# yaml-language-server: $schema=https://raw.githubusercontent.com/zarf-dev/zarf/main/zarf.schema.json
+kind: ZarfPackageConfig
+metadata:
+  name: distro-k3s
+  version: "###ZARF_PKG_TMPL_VERSION###"
+  source: https://github.com/colonel-byte/zarf-pkg-k3s
+  annotations:
+    org.opencontainers.image.source: "https://github.com/colonel-byte/zarf-pkg-k3s"
+    org.opencontainers.image.description: Zarf package for deploying k3s
+variables:
+  - name: K3S_ARGS
+    description: Arguments to pass to K3s
+    default: --disable traefik
+components:
+  - name: binary
+    required: true
+    files:
+      - source: target/k3s
+        target: /var/lib/rancher/k3s/bin/k3s
+        shasum: "###ZARF_PKG_TMPL_K3S_SHA_AMD###"
+        executable: true
+        symlinks:
+          - /var/lib/rancher/k3s/bin/kubectl
+          - /var/lib/rancher/k3s/bin/ctr
+          - /var/lib/rancher/k3s/bin/crictl
+    only:
+      cluster:
+        architecture: amd64
+    actions:
+      onCreate:
+        before:
+          - cmd: |-
+              rm -rf   target
+              mkdir -p target
+              echo https://github.com/k3s-io/k3s/releases/download/###ZARF_PKG_TMPL_K3S_VERSION###/k3s
+              curl -L -o ./target/k3s https://github.com/k3s-io/k3s/releases/download/###ZARF_PKG_TMPL_K3S_VERSION###/k3s
+              chmod +x ./target/k3s
+            description: pull k3s binary
+      onDeploy:
+        defaults:
+          maxRetries: 5
+        before:
+          - cmd: if [ "$(uname -m)" != "x86_64" ]; then echo "this package architecture is amd64, but the target system has a different architecture. These architectures must be the same" && exit 1; fi
+            description: Check that the host architecture matches the package architecture
+            maxRetries: 0
+          - cmd: ./zarf internal is-valid-hostname
+            maxRetries: 0
+            description: Check if the current system has a, RFC1123 compliant hostname
+  - name: binary
+    required: true
+    files:
+      - source: target/k3s
+        target: /var/lib/rancher/k3s/bin/k3s
+        shasum: "###ZARF_PKG_TMPL_K3S_SHA_ARM###"
+        executable: true
+        symlinks:
+          - /var/lib/rancher/k3s/bin/kubectl
+          - /var/lib/rancher/k3s/bin/ctr
+          - /var/lib/rancher/k3s/bin/crictl
+    only:
+      cluster:
+        architecture: arm64
+    actions:
+      onCreate:
+        before:
+          - cmd: |-
+              rm -rf   target
+              mkdir -p target
+              echo https://github.com/k3s-io/k3s/releases/download/###ZARF_PKG_TMPL_K3S_VERSION###/k3s
+              curl -L -o ./target/k3s https://github.com/k3s-io/k3s/releases/download/###ZARF_PKG_TMPL_K3S_VERSION###/k3s-arm64
+              chmod +x ./target/k3s
+            description: pull k3s binary
+      onDeploy:
+        defaults:
+          maxRetries: 5
+        before:
+          - cmd: if [ "$(uname -m)" != "aarch64" ] && [ "$(uname -m)" != "arm64" ]; then echo "this package architecture is arm64, but the target system has a different architecture. These architectures must be the same" && exit 1; fi
+            description: Check that the host architecture matches the package architecture
+            maxRetries: 0
+          - cmd: ./zarf internal is-valid-hostname
+            maxRetries: 0
+            description: Check if the current system has a, RFC1123 compliant hostname
+  - name: server
+    required: false
+    files:
+      - source: files/k3s-server.service
+        target: /etc/systemd/system/k3s-server.service
+        symlinks:
+          - /etc/systemd/system/multi-user.target.wants/k3s-server.service
+  - name: agent
+    required: false
+    files:
+      - source: files/k3s-agent.service
+        target: /etc/systemd/system/k3s-agent.service
+        symlinks:
+          - /etc/systemd/system/multi-user.target.wants/k3s-agent.service
+  - name: images
+    required: true
+    only:
+      cluster:
+        architecture: amd64
+    files:
+      - target: /var/lib/k0s/images
+        source: ./target
+    actions:
+      onCreate:
+        before:
+          - description: pull images
+            cmd: |-
+              rm -rf ./target
+              mkdir -p ./target
+              echo ""
+
+              for img in `cat ./files/air-gap.txt | sort`; do
+                export TAR="$(echo $img | sed -E 's/\//_/g; s/:.+$//g').tar"
+                echo "pulling $img"
+                ./zarf tools registry pull  --platform "linux/amd64" $img ./target/$TAR
+              done
+  - name: images
+    required: true
+    only:
+      cluster:
+        architecture: arm64
+    files:
+      - target: /var/lib/k0s/images
+        source: ./target
+    actions:
+      onCreate:
+        before:
+          - description: pull images
+            cmd: |-
+              rm -rf ./target
+              mkdir -p ./target
+              echo ""
+
+              for img in `cat ./files/air-gap.txt | sort`; do
+                export TAR="$(echo $img | sed -E 's/\//_/g; s/:.+$//g').tar"
+                echo "pulling $img"
+                ./zarf tools registry pull  --platform "linux/arm64" $img ./target/$TAR
+              done
