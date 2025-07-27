@@ -55,7 +55,7 @@
         "/(^|/).+\\.ya?ml(\\.j2)?$/"
       ],
       matchStrings: [
-        "(?m:renovate: datasource=(?<datasource>.+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\n\\.+(version: )(?<currentValue>(.+))$)"
+        "(?m:renovate: datasource=(?<datasource>.+) depName=(?<depName>\\S+)( versioning=(?<versioning>\\S+))?\\n.+(version: )(?<currentValue>(.+))$)"
       ],
       versioningTemplate: "{{#if versioning}}{{{versioning}}}{{else}}semver{{/if}}",
     },
