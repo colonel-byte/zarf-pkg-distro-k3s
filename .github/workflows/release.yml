@@ -55,7 +55,8 @@ jobs:
       - name: Package Zarf package
         run: |-
           zarf package create \
-            --confirm ${{ matrix.arch }} \
+            --confirm .
+            --architecture ${{ matrix.arch }}\
             --set version=${{ steps.describe.outputs.git_describe }}
 
       - name: Publish Zarf package
