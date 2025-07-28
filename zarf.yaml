@@ -88,6 +88,10 @@ components:
         target: /etc/systemd/system/k3s-server.service
         symlinks:
           - /etc/systemd/system/multi-user.target.wants/k3s-server.service
+    actions:
+      onDeploy:
+        after:
+          - cmd: systemctl daemon-reload
   - name: agent
     required: false
     files:
@@ -95,6 +99,10 @@ components:
         target: /etc/systemd/system/k3s-agent.service
         symlinks:
           - /etc/systemd/system/multi-user.target.wants/k3s-agent.service
+    actions:
+      onDeploy:
+        after:
+          - cmd: systemctl daemon-reload
   - name: images
     required: true
     only:
