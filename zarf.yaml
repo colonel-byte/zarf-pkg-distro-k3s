@@ -4,9 +4,9 @@ kind: ZarfPackageConfig
 metadata:
   name: distro-k3s
   version: "###ZARF_PKG_TMPL_VERSION###"
-  source: https://github.com/colonel-byte/zarf-pkg-k3s
+  source: https://github.com/colonel-byte/zarf-pkg-distro-k3s
   annotations:
-    org.opencontainers.image.source: "https://github.com/colonel-byte/zarf-pkg-k3s"
+    org.opencontainers.image.source: "https://github.com/colonel-byte/zarf-pkg-distro-k3s"
     org.opencontainers.image.description: Zarf package for deploying k3s
 variables:
   - name: K3S_ARGS
