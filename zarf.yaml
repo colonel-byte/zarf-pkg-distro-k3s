@@ -24,6 +24,9 @@ components:
           - /var/lib/rancher/k3s/bin/kubectl
           - /var/lib/rancher/k3s/bin/ctr
           - /var/lib/rancher/k3s/bin/crictl
+      - source: profile/zarf-pkg-k3s.sh
+        target: /etc/profile.d/zarf-pkg-k3s.sh
+        executable: true
     only:
       cluster:
         architecture: amd64
@@ -58,6 +61,9 @@ components:
           - /var/lib/rancher/k3s/bin/kubectl
           - /var/lib/rancher/k3s/bin/ctr
           - /var/lib/rancher/k3s/bin/crictl
+      - source: profile/zarf-pkg-k3s.sh
+        target: /etc/profile.d/zarf-pkg-k3s.sh
+        executable: true
     only:
       cluster:
         architecture: arm64
@@ -112,6 +118,11 @@ components:
       - target: /var/lib/rancher/k3s/images
         source: ./target
     actions:
+      onDeploy:
+        before:
+          - description: remove existing cached images
+            cmd: |-
+              rm -rf /var/lib/rancher/k3s/images
       onCreate:
         before:
           - description: pull images
@@ -134,6 +145,11 @@ components:
       - target: /var/lib/rancher/k3s/images
         source: ./target
     actions:
+      onDeploy:
+        before:
+          - description: remove existing cached images
+            cmd: |-
+              rm -rf /var/lib/rancher/k3s/images
       onCreate:
         before:
           - description: pull images
@@ -147,3 +163,41 @@ components:
                 echo "pulling $img"
                 ./zarf tools registry pull  --platform "linux/arm64" $img ./target/$TAR
               done
+  - name: k3sup-binary
+    required: false
+    files:
+      - source: target/k3sup
+        target: /var/lib/rancher/k3s/bin/k3sup
+        shasum: "###ZARF_PKG_TMPL_K3SUP_SHA_AMD###"
+        executable: true
+    only:
+      cluster:
+        architecture: amd64
+    actions:
+      onCreate:
+        before:
+          - cmd: |-
+              rm -rf     target
+              mkdir -p   target
+              curl -L -o target/k3sup https://github.com/alexellis/k3sup/releases/download/###ZARF_PKG_TMPL_K3SUP_VERSION###/k3sup
+              chmod +x   target/k3sup
+            description: pull k3sup binary
+  - name: k3sup-binary
+    required: false
+    files:
+      - source: target/k3sup
+        target: /var/lib/rancher/k3s/bin/k3sup
+        shasum: "###ZARF_PKG_TMPL_K3SUP_SHA_ARM###"
+        executable: true
+    only:
+      cluster:
+        architecture: arm64
+    actions:
+      onCreate:
+        before:
+          - cmd: |-
+              rm -rf     target
+              mkdir -p   target
+              curl -L -o target/k3sup https://github.com/alexellis/k3sup/releases/download/###ZARF_PKG_TMPL_K3SUP_VERSION###/k3sup-arm64
+              chmod +x   target/k3sup
+            description: pull k3sup binary

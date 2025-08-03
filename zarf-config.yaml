@@ -9,3 +9,7 @@ package:
       k3s_version: v1.32.7+k3s1
       k3s_sha_amd: e15ced04176d2a3f8754a872012db0f6e043aea1b00c0421e4c3328d9ffb8dde
       k3s_sha_arm: cf4ca4b9e38621fd6b111ab12b15d2dd9cbdb8a9aee55d7ffaa38325da1f1e94
+      # renovate: datasource=github-releases depName=alexellis/k3sup versioning=regex:^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$
+      k3sup_version: 0.13.9
+      k3sup_sha_amd: 52079bac52a88c098878033da24df9cc9b6ed617b53eb5ae9087b8fb04a289ea
+      k3sup_sha_arm: 384296b5da7f230ee8fb8d1d5463e54f22dc511268a248a1151ccbf907a865f4
