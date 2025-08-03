@@ -11,5 +11,5 @@ package:
       k3s_sha_arm: 152c961aae4aa7553865481c21902a3cc8e02550df97587379a409494c3626c4
       # renovate: datasource=github-releases depName=alexellis/k3sup versioning=regex:^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$
       k3sup_version: 0.13.10
-      k3sup_sha_amd: 52079bac52a88c098878033da24df9cc9b6ed617b53eb5ae9087b8fb04a289ea
-      k3sup_sha_arm: 384296b5da7f230ee8fb8d1d5463e54f22dc511268a248a1151ccbf907a865f4
+      k3sup_sha_amd: 15993c49872870078399b58fe4188b9bf4f7c398e5d69b34e9ac8a0e06965271
+      k3sup_sha_arm: 44ea8328d28377fd383e40b32e083fd7b0d5a341df6f5352361a15310fd3dc55
