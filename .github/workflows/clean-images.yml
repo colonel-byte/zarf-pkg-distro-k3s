@@ -19,7 +19,7 @@ jobs:
           use-regex: true
           packages: "zarf/distro-k3s"
           exclude-tags: "^latest$|^v\\d+\\.\\d+\\.\\d+-k3s\\d+$"
-          keep-n-tagged: 3
+          keep-n-tagged: 0
           token: '${{ secrets.GITHUB_TOKEN }}'
 
       - name: Validate images
