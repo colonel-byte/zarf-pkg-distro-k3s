@@ -6,7 +6,7 @@ package:
     set:
       version: v0.0.0-k3s0
       # renovate: datasource=github-tags depName=k3s-io/k3s versioning=regex:^v(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)\+k3s(?<build>\d+)$
-      k3s_version: v1.33.3+k3s1
+      k3s_version: v1.33.4+k3s1
       k3s_sha_amd: f03cad6610cf5b2903d8a9ac3d6716690e53dab461b09c07b0c913a262166abc
       k3s_sha_arm: 152c961aae4aa7553865481c21902a3cc8e02550df97587379a409494c3626c4
       # renovate: datasource=github-tags depName=alexellis/k3sup versioning=regex:^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$
