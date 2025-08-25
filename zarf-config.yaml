@@ -7,8 +7,8 @@ package:
       version: v0.0.0-k3s0
       # renovate: datasource=github-tags depName=k3s-io/k3s versioning=regex:^v(?<major>1)\.(?<minor>31)\.(?<patch>\d+)\+k3s(?<build>\d+)$
       k3s_version: v1.31.12+k3s1
-      k3s_sha_amd: f91376dd129ea7a08faee8f98c86d56b2088b729e9b54b33c951eeb5f140baab
-      k3s_sha_arm: 4ff214ee0b7d5d3561840af5b68db278e6f553590edec3abe1125e5fca733f2b
+      k3s_sha_amd: 4e4ff40e0867d9e5a21164c4497094ab341b96fd1f1c09010974a894faa387b7
+      k3s_sha_arm: 0c38b17d04f2ff9b3878799c360f65e40fbb7c7d3840167a4e6d8c180753f86a
       # renovate: datasource=github-releases depName=alexellis/k3sup versioning=regex:^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$
       k3sup_version: 0.13.11
       k3sup_sha_amd: 46ee77da750ad2d2961c48848883f1b017444c0fc4dea44d3f47feefcce090a2
