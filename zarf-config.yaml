@@ -6,9 +6,9 @@ package:
     set:
       version: v0.0.0-k3s0
       # renovate: datasource=github-tags depName=k3s-io/k3s versioning=regex:^v(?<major>1)\.(?<minor>32)\.(?<patch>\d+)\+k3s(?<build>\d+)$
-      k3s_version: v1.32.8+k3s1
-      k3s_sha_amd: 639a113cfc5465082fd98ff2947a3d962039f78adddefbf4a4aecf4a1f485e79
-      k3s_sha_arm: e1eaae168f12e04a0e05491b38566f7d8dc427b74edfb2d645b58c7fd1ed6259
+      k3s_version: v1.32.12+k3s1
+      k3s_sha_amd: 96fddb172ab85bb0c282b826a441422dd71dfc52cca920c2ed070a68940aad1b
+      k3s_sha_arm: 8f2532544273ec94c926accf75a0768e3907e692762f48b96bc919a8e0acf909
       # renovate: datasource=github-releases depName=alexellis/k3sup versioning=regex:^(?<major>\d+)\.(?<minor>\d+)\.(?<patch>\d+)$
       k3sup_version: 0.13.11
       k3sup_sha_amd: 46ee77da750ad2d2961c48848883f1b017444c0fc4dea44d3f47feefcce090a2
